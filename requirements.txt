@@ -1,11 +1,4 @@
 streamlit
-<<<<<<< HEAD
 ephem
 pillow
 matplotlib
-=======
-pillow
-numpy
-requests
-ephem
->>>>>>> 97abda7c97e4a8e2175655f94261fbfae3a4098a
