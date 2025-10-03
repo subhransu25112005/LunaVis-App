@@ -1,5 +1,5 @@
 streamlit
-moon_phase
+ephem
 pillow
 numpy
 requests
