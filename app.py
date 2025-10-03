@@ -54,6 +54,7 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
 # ----------------- Streamlit GUI -----------------
 st.set_page_config(page_title="Moon Phase Visualizer", page_icon="🌙", layout="centered")
 st.title("🌌 Moon Phase Visualizer")
+st.sidebar.markdown("© 2025 Subhranshu Nanda")
 
 # Inputs
 date = st.date_input("Select Date", datetime.utcnow())
@@ -92,3 +93,5 @@ if st.button("Plot Next 30 Days"):
         ax.set_xticks(range(len(dates)))
         ax.set_xticklabels(dates, rotation=45)
         st.pyplot(fig)
+
+st.markdown("Created by *Subhransu Nanda*")
