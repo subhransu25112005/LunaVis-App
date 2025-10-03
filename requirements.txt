@@ -1,5 +1,4 @@
 streamlit
 ephem
 pillow
-numpy
-requests
+matplotlib
