@@ -1,5 +1,4 @@
 streamlit
-moon_phase
 pillow
 numpy
 requests
