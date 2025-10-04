@@ -53,7 +53,7 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
 
 # ----------------- Streamlit GUI -----------------
 st.set_page_config(page_title="Moon Phase Visualizer", page_icon="🌙", layout="centered")
-st.title("🌌 Moon Phase Visualizer")
+st.title("🌌LunaVis - Moon Phase Visualizer")
 with st.sidebar.expander("ℹ️ About Moon Phases"):
     st.markdown("""
     **Moon Phases & Libration**  
