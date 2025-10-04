@@ -54,6 +54,18 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
 # ----------------- Streamlit GUI -----------------
 st.set_page_config(page_title="Moon Phase Visualizer", page_icon="🌙", layout="centered")
 st.title("🌌 Moon Phase Visualizer")
+with st.sidebar.expander("ℹ️ About Moon Phases"):
+    st.markdown("""
+    **Moon Phases & Libration**  
+    The Moon doesn’t show us the exact same face every night. Due to its tilted orbit and elliptical path, we observe a gentle wobble called **libration**. This allows us to see about **59%** of the lunar surface over time.
+
+    🌕 **Phases**: New Moon, Crescent, Quarter, Gibbous, Full Moon  
+    🔄 **Libration**: The apparent wobble due to orbital mechanics  
+    📡 **NASA Visualization**: Hourly views of the Moon’s motion using data from the Lunar Reconnaissance Orbiter.
+    """)
+    st.image("https://svs.gsfc.nasa.gov/5415/graphics/5415_0001.jpg", caption="NASA Moon Phase & Libration Diagram")
+    st.video("https://www.youtube.com/watch?v=3f_21N3wcX8")
+    st.markdown("[🔗 NASA Moon Phase & Libration 2025](https://moon.nasa.gov/resources/563/moon-phase-and-libration-2025/)")
 st.sidebar.markdown("© 2025 Subhranshu Nanda")
 
 # Inputs
