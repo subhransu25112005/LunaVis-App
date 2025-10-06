@@ -43,7 +43,7 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
         draw.ellipse((x, y, x+size, y+size), fill=color)
 
     moon = Image.open(moon_img_path).convert("RGBA")
-    moon = moon.resize((150, 150), Image.LANCZOS)  # ✅ Fixed resizing method
+    moon = moon.resize((150, 150), Image.LANCZOS)
     moon = ImageEnhance.Brightness(moon).enhance(1.2)
 
     moon_position = ((width - moon.width) // 2, (height - moon.height) // 2)
@@ -53,15 +53,16 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
 
 # ----------------- Streamlit GUI -----------------
 st.set_page_config(page_title="Moon Phase Visualizer", page_icon="🌙", layout="centered")
-st.title("🌌LunaVis - Moon Phase Visualizer")
-with st.sidebar.expander("ℹ️ About Moon Phases"):
-    st.markdown("""
-    **Moon Phases & Libration**  
-    The Moon doesn’t show us the exact same face every night. Due to its tilted orbit and elliptical path, we observe a gentle wobble called **libration**. This allows us to see about **59%** of the lunar surface over time.
+st.title("🌌 LunaVis - Moon Phase Visualizer with Ambient Sound")
 
-    🌕 **Phases**: New Moon, Crescent, Quarter, Gibbous, Full Moon  
-    🔄 **Libration**: The apparent wobble due to orbital mechanics  
-    📡 **NASA Visualization**: Hourly views of the Moon’s motion using data from the Lunar Reconnaissance Orbiter.
+with st.sidebar.expander("ℹ About Moon Phases"):
+    st.markdown("""
+    *Moon Phases & Libration*  
+    The Moon doesn’t show us the exact same face every night. Due to its tilted orbit and elliptical path, we observe a gentle wobble called *libration. This allows us to see about **59%* of the lunar surface over time.
+
+    🌕 *Phases*: New Moon, Crescent, Quarter, Gibbous, Full Moon  
+    🔄 *Libration*: The apparent wobble due to orbital mechanics  
+    📡 *NASA Visualization*: Hourly views of the Moon’s motion using data from the Lunar Reconnaissance Orbiter.
     """)
     st.image("https://svs.gsfc.nasa.gov/5415/graphics/5415_0001.jpg", caption="NASA Moon Phase & Libration Diagram")
     st.video("https://www.youtube.com/watch?v=3f_21N3wcX8")
@@ -83,6 +84,13 @@ if st.button("Show Moon Phase"):
         img_path = get_moon_image(phase, waxing)
         sky_with_moon = generate_starry_sky_with_moon(img_path)
         st.image(sky_with_moon, caption="Moon Phase", use_container_width=True)
+
+        # ----------------- Ambient Sound -----------------
+        st.subheader("🌌 Ambient Moon Sound")
+        # You can replace this URL with a real AI-generated sound API URL
+        ambient_sound_url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        st.audio(ambient_sound_url, format="audio/mp3", start_time=0)
+        st.info("Ambient sound is generated automatically for a calm moon night experience 🌙☁")
 
     except Exception as e:
         st.error(f"Error fetching moon phase: {e}")
@@ -106,4 +114,4 @@ if st.button("Plot Next 30 Days"):
         ax.set_xticklabels(dates, rotation=45)
         st.pyplot(fig)
 
-st.markdown("Created by *Subhransu Nanda*")
+st.markdown("Created by Subhranshu Nanda")

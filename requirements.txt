@@ -2,3 +2,5 @@ streamlit
 ephem
 pillow
 matplotlib
+openai
+requests
