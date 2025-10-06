@@ -30,6 +30,19 @@ def waxing_or_waning(date, lat, lon):
     tomorrow_phase = get_moon_phase(tomorrow, lat, lon)
     return tomorrow_phase >= today_phase
 
+
+# ----------------- Sound Mapping Based on Phase -----------------
+def get_moon_soundtrack(illumination):
+    if illumination < 1:
+        return "assets/new_moon.mp3"
+    elif illumination < 25:
+        return "assets/crescent.mp3"
+    elif illumination < 50:
+        return "assets/quarter.mp3"
+    elif illumination < 75:
+        return "assets/gibbous.mp3"
+    else:
+        return "assets/full_moon.mp3"
 # ----------------- Starry Sky with Moon -----------------
 def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_stars=150):
     sky = Image.new("RGB", (width, height), "black")
@@ -43,7 +56,7 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
         draw.ellipse((x, y, x+size, y+size), fill=color)
 
     moon = Image.open(moon_img_path).convert("RGBA")
-    moon = moon.resize((150, 150), Image.LANCZOS)
+    moon = moon.resize((150, 150), Image.LANCZOS)  # ✅ Fixed resizing method
     moon = ImageEnhance.Brightness(moon).enhance(1.2)
 
     moon_position = ((width - moon.width) // 2, (height - moon.height) // 2)
@@ -53,8 +66,7 @@ def generate_starry_sky_with_moon(moon_img_path, width=600, height=400, num_star
 
 # ----------------- Streamlit GUI -----------------
 st.set_page_config(page_title="Moon Phase Visualizer", page_icon="🌙", layout="centered")
-st.title("🌌 LunaVis - Moon Phase Visualizer with Ambient Sound")
-
+st.title("🌌LunaVis - Moon Phase Visualizer")
 with st.sidebar.expander("ℹ About Moon Phases"):
     st.markdown("""
     *Moon Phases & Libration*  
@@ -78,19 +90,14 @@ if st.button("Show Moon Phase"):
     try:
         phase = get_moon_phase(date.strftime("%Y-%m-%d"), lat, lon)
         waxing = waxing_or_waning(date.strftime("%Y-%m-%d"), lat, lon)
+        soundtrack = get_moon_soundtrack(phase)
+        st.audio(soundtrack, format="audio/mp3")
 
         st.subheader(f"Illumination: {phase:.2f}% ({'Waxing' if waxing else 'Waning'})")
 
         img_path = get_moon_image(phase, waxing)
         sky_with_moon = generate_starry_sky_with_moon(img_path)
         st.image(sky_with_moon, caption="Moon Phase", use_container_width=True)
-
-        # ----------------- Ambient Sound -----------------
-        st.subheader("🌌 Ambient Moon Sound")
-        # You can replace this URL with a real AI-generated sound API URL
-        ambient_sound_url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        st.audio(ambient_sound_url, format="audio/mp3", start_time=0)
-        st.info("Ambient sound is generated automatically for a calm moon night experience 🌙☁")
 
     except Exception as e:
         st.error(f"Error fetching moon phase: {e}")
@@ -114,4 +121,4 @@ if st.button("Plot Next 30 Days"):
         ax.set_xticklabels(dates, rotation=45)
         st.pyplot(fig)
 
-st.markdown("Created by Subhranshu Nanda")
+st.markdown("Created by Subhransu Nanda")
